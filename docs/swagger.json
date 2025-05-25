@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "description": "API for The Vault – A Secret Agent Briefing System",
+    "description": "API for The Vault API, A Secret Agent Briefing System",
     "version": "1.0.0",
     "title": "The Vault API"
   },

@@ -4,9 +4,9 @@ services:
   vault-api:
     build: .
     ports:
-      - "5000:5000"
+      - "3000:3000"
     environment:
-      - MONGO_URI=mongodb://mongo:27017/vault
+      - MONGO_URI=mongodb+srv://ahmaddev:vaultApiPassword@cluster0.jgfgfjj.mongodb.net/vault?retryWrites=true&w=majority&appName=Cluster0/
       - JWT_SECRET=supersecretkey
     depends_on:
       - mongo
