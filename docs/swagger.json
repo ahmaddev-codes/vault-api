@@ -1,0 +1,60 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "API for The Vault – A Secret Agent Briefing System",
+    "version": "1.0.0",
+    "title": "The Vault API"
+  },
+  "host": "localhost:5000",
+  "basePath": "/api",
+  "schemes": ["http"],
+  "paths": {
+    "/agents/register": {
+      "post": {
+        "summary": "Register agent",
+        "parameters": [{
+          "in": "body",
+          "name": "body",
+          "schema": {
+            "$ref": "#/definitions/Agent"
+          }
+        }],
+        "responses": {
+          "201": { "description": "Agent registered" }
+        }
+      }
+    },
+    "/agents/login": {
+      "post": {
+        "summary": "Agent login",
+        "parameters": [{
+          "in": "body",
+          "name": "body",
+          "schema": {
+            "$ref": "#/definitions/Login"
+          }
+        }],
+        "responses": {
+          "200": { "description": "Login successful" }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Agent": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "password": { "type": "string" }
+      }
+    },
+    "Login": {
+      "type": "object",
+      "properties": {
+        "email": { "type": "string" },
+        "password": { "type": "string" }
+      }
+    }
+  }
+}
