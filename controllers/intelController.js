@@ -7,25 +7,33 @@ const createIntel = async (req, res) => {
   res.status(201).json(created);
 };
 
-const getMyIntel = async (req, res) => {
-  const { agentId } = req.body
+const getAllIntel = async (req, res) => {
+  const intels = await Intel.find({ }, 'title details location');
+  res.json(intels);
+};
+
+const getAgentIntel = async (req, res) => {
   const intel = await Intel.find({ agentId });
   res.json(intel);
 };
 
 const updateIntel = async (req, res) => {
-  const {agentId} = req.body
-  const intel = await Intel.findById(agentId);
+  try {
+    const {intelId} = req.body._id
+    const intel = await Intel.findById(intelId);
 
-  if (intel && intel.agentId.toString() === req.agent._id.toString()) {
-    intel.title = req.body.title || intel.title;
-    intel.description = req.body.description || intel.description;
-    intel.location = req.body.location || intel.location;
-    const updated = await intel.save();
-    res.json(updated);
-  } else {
-    res.status(404).json({ message: 'Intel not found or unauthorized' });
-  }
+    if (intel && intel.agentId.toString() === req.agent._id.toString()) {
+      intel.title = req.body.title || intel.title;
+      intel.description = req.body.description || intel.description;
+      intel.location = req.body.location || intel.location;
+      const updated = await intel.save();
+      res.json(updated);
+    } else {
+      res.status(404).json({ message: 'Intel not found or unauthorized' });
+    }
+  } catch (error) {
+      res.send(500).json({message: `Server Error: ${error.message}`})
+    }
 };
 
 const deleteIntel = async (req, res) => {
@@ -40,7 +48,8 @@ const deleteIntel = async (req, res) => {
 
 module.exports = {
   createIntel,
-  getMyIntel,
+  getAllIntel,
+  getAgentIntel,
   updateIntel,
   deleteIntel
 }

@@ -1,7 +1,8 @@
 const express = require('express');
 const {
   createIntel,
-  getMyIntel,
+  getAllIntel,
+  getAgentIntel,
   updateIntel,
   deleteIntel
 } = require('../controllers/intelController');
@@ -10,9 +11,10 @@ const router = express.Router();
 
 router.route('/')
   .post(protect, createIntel)
-  .get(protect, getMyIntel);
+  .get(protect, getAllIntel);
 
-router.route('/:id')
+  router.route('/:id')
+  .get(protect, getAgentIntel)
   .put(protect, updateIntel)
   .delete(protect, deleteIntel);
 
