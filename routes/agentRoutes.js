@@ -1,7 +1,8 @@
 const express = require('express');
-const { registerAgent, authAgent } = require('../controllers/agentController');
+const { registerAgent, authAgent, getAllAgents } = require('../controllers/agentController');
 const router = express.Router();
 
+router.get('/', getAllAgents)
 router.post('/register', registerAgent);
 router.post('/login', authAgent);
 
