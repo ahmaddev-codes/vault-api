@@ -9,8 +9,10 @@ exports.protect = async (req, res, next) => {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       req.agent = await Agent.findById(decoded.id).select('-password');
       next();
+      return; // Important: return after successful authentication
     } catch (error) {
       res.status(401).json({ message: 'Not authorized, token failed' });
+      return;
     }
   }
 

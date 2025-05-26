@@ -13,14 +13,14 @@ const getAllIntel = async (req, res) => {
 };
 
 const getAgentIntel = async (req, res) => {
+  const agentId = req.params.agentId || req.agent._id;
   const intel = await Intel.find({ agentId });
   res.json(intel);
 };
 
 const updateIntel = async (req, res) => {
   try {
-    const {intelId} = req.body._id
-    const intel = await Intel.findById(intelId);
+    const intel = await Intel.findById(req.params.id);
 
     if (intel && intel.agentId.toString() === req.agent._id.toString()) {
       intel.title = req.body.title || intel.title;
@@ -32,7 +32,7 @@ const updateIntel = async (req, res) => {
       res.status(404).json({ message: 'Intel not found or unauthorized' });
     }
   } catch (error) {
-      res.send(500).json({message: `Server Error: ${error.message}`})
+      res.status(500).json({message: `Server Error: ${error.message}`})
     }
 };
 
