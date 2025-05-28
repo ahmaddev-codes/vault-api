@@ -8,7 +8,7 @@ const agentSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 agentSchema.methods.matchPassword = async function (enteredPassword) {
-  return await bcrypt.compare(enteredPassword, this.password);
+  return await bcrypt.compare(enteredPassword, this.password); 
 };
 
 agentSchema.pre('save', async function (next) {

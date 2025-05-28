@@ -1,4 +1,3 @@
-const { agent } = require('supertest');
 const Agent = require('../models/Agent');
 const generateToken = require('../utils/generateToken');
 
@@ -27,19 +26,21 @@ const getAllAgents = async (req, res) => {
   try {
     const agents = await Agent.find({}, 'name email')
     res.status(200).json({
-      TotalAgents: agents.length,
-      Agents: agents
+      Agents: agents,
+      TotalAgents: agents.length
     })
   } catch (error) {
     res.status(500).json({ error: "Server error", message: error.message })
   }
 }
 
-// Authenticate and login Agent
+// Agent login and authentication
 const authAgent = async (req, res) => {
   const { email, password } = req.body;
-  const agent = await Agent.findOne({ email });
+  const agent = await Agent.findOne({ email }); // Find agent by email
 
+  // If agent exists, check password
+  // If password matches, return agent details and token
   if (agent && (await agent.matchPassword(password))) {
     res.json({
       _id: agent._id,
